@@ -10,7 +10,7 @@ const appStatus = { //TEMP
 // HTML ELEMENT REFERENCES
 const videoElement = getElement("camera_feed"); 
 const canvasElement = getElement("canvas");
-const outputConsole = getElement("app_output");
+const statusHolder = getElement("statusTable");
 const predictedLetter = getElement("predicted_letter");
 const predictedResult = getElement("predicted_result")
 
@@ -20,13 +20,19 @@ let result = '';
 let buffer = {};
 let count = 0;
 
+let HANDS_MODEL;
+
 function setup() {
 	noCanvas(); // PREVENTS p5.js DEFAULT BEHAVIOUR
 
 	brain = ml5.KNNClassifier();
-	brain.load('/model/testingKNN.json')
+	brain.load('/model/testingKNN.json', () => {
+		addStatus(statusHolder, 'KNN Model Loaded', true);
+	})
 
-	const HANDS_MODEL = new Hands({
+	
+
+	HANDS_MODEL = new Hands({
 		locateFile: (file) => {
 			return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
 		},
@@ -48,9 +54,8 @@ function setup() {
 		width: CAMERA_SIZE,
 		height: CAMERA_SIZE,
 	});
-	CAMERA.start();
+	CAMERA.start().then(() => addStatus(statusHolder, 'Initialize Camera Feed', true)).catch(()=> addStatus(statusHolder, 'Initialize Camera Feed', false));
 
-    updateElementText(outputConsole, 'App started');
 }
 
 function onResults(results) {

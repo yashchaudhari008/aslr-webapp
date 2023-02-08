@@ -10,29 +10,38 @@
     <script src="libs/p5/p5.min.js"></script>
     <script src="libs/ml5/ml5.min.js"></script>
     <link rel="stylesheet" href="main.css" />
-
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=0.5"> -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <!-- <div>
-        <h1>ASLR APP</h1>
-        <p>Development Version</p>
-    </div> -->
-    <div class="container">
+    <header>
+        <h1>ASLR App</h1>
+        <p class="version">Development Version</p>
+    </header>
+    <main>
         <video id="camera_feed" style="display:none;"></video>
         <div id="camera_container">
             <canvas id="canvas" width="480px" height="480px"></canvas>
             <div id="predicted_letter">-</div>
         </div>
-        <div id="results">
-            <h1>Result</h1>
-            <h2 id="predicted_result"> ... </h2>
-        </div>
-    </div>
-    <div id="app_output">
-        Please Wait...
-    </div>
+        <aside>
+            <div class="aside-ele">
+                <h1>Results</h1>
+                <h3 id="predicted_result"> -
+                </h3>
+            </div>
+            <div class="aside-ele">
+                <h1>Status</h1>
+                <table id="statusTable">
+                </table>
+            </div>
+        </aside>
+    </main>
+    <footer>
+        Made using p5.js, ml5.js, Mediapipe - (Hands)
+    </footer>
+
 </body>
 <!-- <script>
     if ("serviceWorker" in navigator) {

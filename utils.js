@@ -35,6 +35,21 @@ function drawHand(results, canvasElement) {
 	canvasCtx.restore();
 }
 
+function addStatus(table, text, status){
+	const row = document.createElement("tr");
+
+	const cell1 = document.createElement("td");
+	const cell1Text = document.createTextNode(text + ":");
+	cell1.appendChild(cell1Text);
+	row.appendChild(cell1);
+	const cell2 = document.createElement("td");
+	const cell2Text = document.createTextNode((status)? '✅':'❌' );
+	cell2.appendChild(cell2Text);
+	row.appendChild(cell2);
+
+	table.appendChild(row);
+
+}
 //#endregion
 
 //#region CLASSES
