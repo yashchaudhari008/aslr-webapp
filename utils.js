@@ -40,39 +40,4 @@ function drawHand(results, canvasElement) {
 //#region CLASSES
 //----------------------------------------------
 
-class Timer{
-	constructor(MAX_COUNT, INTERVAL_IN_MS = 1000){
-		this.MAX_COUNT = MAX_COUNT;
-		this.INTERVAL_IN_MS = INTERVAL_IN_MS;
-		this.CURRENT_COUNT = 0;
-		this.TRIGGER = null;
-	}
-	get currentTime(){
-		return this.CURRENT_COUNT;
-	}
-	get isEnded(){
-		return (this.MAX_COUNT === this.CURRENT_COUNT);
-	}
-	get isStarted(){
-		return (this.CURRENT_COUNT >= 0 && this.TRIGGER !== null)
-	}
-	start(){
-		if(this.TRIGGER) return;
-		this.TRIGGER = setInterval(() => this.updateTime(), this.INTERVAL_IN_MS);
-	}
-	reset(){
-		clearInterval(this.TRIGGER);
-		this.TRIGGER = null;
-		this.CURRENT_COUNT = 0;
-	}
-	updateTime() {
-		if(this.CURRENT_COUNT < this.MAX_COUNT){
-			this.CURRENT_COUNT++;
-		} else {
-			clearInterval(this.TRIGGER);
-			this.TRIGGER = null;
-		}
-	}
-}
-
 //#endregion

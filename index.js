@@ -1,8 +1,7 @@
 // APP SETTINGS
 const CAMERA_SIZE = 480/2;
-const TIMER_MAX_COUNT = 1;
-const TIMER_INTERVAL = 1000; //in ms
-const LETTER_THRESOLD = 10;//DEVICE DEPENDENT
+const BUFFER_SIZE = 7;
+const MIN_LETTER_REQ_IN_BUFFER = Math.floor((BUFFER_SIZE*3)/4)
 const appStatus = { //TEMP
     starting: "App Starting, Please Wait",
     idle: "Idle",
@@ -17,28 +16,16 @@ const predictedResult = getElement("predicted_result")
 
 let brain;
 let result = '';
+
 let buffer = {};
-let timer = new Timer(TIMER_MAX_COUNT, TIMER_INTERVAL);
+let count = 0;
 
 function setup() {
 	noCanvas(); // PREVENTS p5.js DEFAULT BEHAVIOUR
 
-    // Brain initialization
-	const BRAIN_CONFIG = {
-        inputs: 63, //21*3	[TOTAL_POINTS*(X+Y+Z)]
-        task: 'classification',
-    }
-    brain = ml5.neuralNetwork(BRAIN_CONFIG);
+	brain = ml5.KNNClassifier();
+	brain.load('/model/testingKNN.json')
 
-	// Loading our model into brain
-    const MODEL_FILES = {
-        model: 'model/model.json',
-        metadata: 'model/model_meta.json',
-        weights: 'model/model.weights.bin'
-    }
-    brain.load(MODEL_FILES, () => console.log('Brain Loaded'));
-
-	
 	const HANDS_MODEL = new Hands({
 		locateFile: (file) => {
 			return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
@@ -81,22 +68,17 @@ function onResults(results) {
             }
 
 			// Sending input for classification
-            brain.classify(inputs, (err, res) => {
-				if (err) {
-					console.warn(err);
-					return;
-				}
-				
-
-				updateResult(res[0].label);
-				// updateElementText(outputConsole,`${res[0].label} ${res[0].confidence.toFixed(3)} ${result}`);
-				updateElementText(predictedLetter,`${res[0].label}`);
+			brain.classify(inputs).then(res => {
+				const label = Object.entries(res.confidencesByLabel)
+				.find(([key,value]) => value==1)
+				if (!label) return
+				updateResult(label[0]);
+				updateElementText(predictedLetter,`${label[0]}`);
 				updateElementText(predictedResult,`${result}`);
-            
+			
 			});
+			
         }
-    } else {
-        updateOutputConsole('NONE');
     }
 }
 
@@ -107,27 +89,24 @@ function updateResult(label){
 	} else {
 		buffer[label]++;
 	}
-
-	if(!timer.isStarted) {
-		timer.start();
-	}else if(timer.isEnded){
-		timer.reset();
-
+	if(count === BUFFER_SIZE){
 		let maxFound = null;
-		let count = 0;
 		for(const ele in buffer){
 			count = count + buffer[ele];
 			if(!maxFound) maxFound = [ele, buffer[ele]]
 			else {
-				if (buffer[ele] > maxFound[1] && maxFound[1] < LETTER_THRESOLD){
+				if (buffer[ele] > maxFound[1] && 
+					maxFound[1] < MIN_LETTER_REQ_IN_BUFFER){
 					maxFound = [ele, buffer[ele]]
 				}
 			}
 		}
-
-		if(maxFound && (count*60)/100 <= maxFound[1] && !result.endsWith(maxFound[0])){
+		if(maxFound && !result.endsWith(maxFound[0])){
 			result = result + maxFound[0];
 		}
+		count = 0;
 		buffer = {};
+		return;
 	}
+	count++;
 }

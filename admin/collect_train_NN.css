@@ -1,0 +1,11 @@
+body, html {
+    background-color: rgb(242, 242, 242);
+}
+.container{
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+}
+#output_canvas {
+    border-radius: 0.8rem;
+}
