@@ -23,7 +23,7 @@ let count = 0;
 let HANDS_MODEL;
 
 brain = ml5.KNNClassifier();
-brain.load('/model/testingKNN.json', () => {
+brain.load('/model/mainKNN.json', () => {
 	addStatus(statusHolder, 'KNN Model Loaded', true);
 })
 
