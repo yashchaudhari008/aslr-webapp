@@ -52,6 +52,7 @@ main {
     gap:1rem;
     max-width: 55rem;
     padding-top: 1rem;
+    justify-content: center;
 }
 aside {
     flex: 1;
