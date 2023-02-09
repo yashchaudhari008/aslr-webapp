@@ -22,41 +22,34 @@ let count = 0;
 
 let HANDS_MODEL;
 
-function setup() {
-	noCanvas(); // PREVENTS p5.js DEFAULT BEHAVIOUR
+brain = ml5.KNNClassifier();
+brain.load('/model/testingKNN.json', () => {
+	addStatus(statusHolder, 'KNN Model Loaded', true);
+})
 
-	brain = ml5.KNNClassifier();
-	brain.load('/model/testingKNN.json', () => {
-		addStatus(statusHolder, 'KNN Model Loaded', true);
-	})
+HANDS_MODEL = new Hands({
+	locateFile: (file) => {
+		return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+	},
+})
 
-	
+const HAND_CONFIG = {
+	maxNumHands: 1,
+	modelComplexity: 1,
+	minDetectionConfidence: 0.8,
+	minTrackingConfidence: 0.8,
+};
+HANDS_MODEL.setOptions(HAND_CONFIG);
+HANDS_MODEL.onResults(onResults);
 
-	HANDS_MODEL = new Hands({
-		locateFile: (file) => {
-			return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-		},
-	})
-	
-	const HAND_CONFIG = {
-		maxNumHands: 1,
-		modelComplexity: 1,
-		minDetectionConfidence: 0.8,
-		minTrackingConfidence: 0.8,
-	};
-	HANDS_MODEL.setOptions(HAND_CONFIG);
-	HANDS_MODEL.onResults(onResults);
-	
-	const CAMERA = new Camera(videoElement, {
-		onFrame: async () => {
-			await HANDS_MODEL.send({ image: videoElement });
-		},
-		width: CAMERA_SIZE,
-		height: CAMERA_SIZE,
-	});
-	CAMERA.start().then(() => addStatus(statusHolder, 'Initialize Camera Feed', true)).catch(()=> addStatus(statusHolder, 'Initialize Camera Feed', false));
-
-}
+const CAMERA = new Camera(videoElement, {
+	onFrame: async () => {
+		await HANDS_MODEL.send({ image: videoElement });
+	},
+	width: CAMERA_SIZE,
+	height: CAMERA_SIZE,
+});
+CAMERA.start().then(() => addStatus(statusHolder, 'Initialize Camera Feed', true)).catch(()=> addStatus(statusHolder, 'Initialize Camera Feed', false));
 
 function onResults(results) {
 	drawHand(results, canvasElement);
