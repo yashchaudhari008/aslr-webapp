@@ -22,7 +22,7 @@ const appStatus = {
 function setup() {
 	noCanvas();
     brain = ml5.KNNClassifier();
-    brain.load('/model/testingKNN.json').then(() => 
+    brain.load('./model/testingKNN.json').then(() => 
     updateOutputConsole(appStatus.brainLoaded))
 
     const containerDiv = createDiv();
