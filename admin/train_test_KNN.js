@@ -1,8 +1,9 @@
-const videoElement = document.getElementById("input_video");
-const canvasElement = document.getElementById("output_canvas");
+const videoElement = document.getElementById("camera_feed");
+const canvasElement = document.getElementById("canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const menuHolder = document.getElementById("menu_holder");
-const outputConsole = document.getElementById("output_console");
+const outputConsole = document.getElementById("dev_console");
+const outputLetter = document.getElementById("predicted_letter");
 const out = document.getElementById("out");
 
 let brain;
@@ -13,24 +14,26 @@ const SAMPLE_COUNT = 100;
 let currentCount = 0;
 
 const appStatus = {
-    starting: "App Starting, Please Wait",
-    idle: "Idle",
-    collecting: "Collecting Data"
+    brainLoaded: "KNN Model Loaded!",
+    idle: "Ready to collect",
+    collecting: "Sample Collected: "
 }
 
 function setup() {
 	noCanvas();
     brain = ml5.KNNClassifier();
-    brain.load('/model/testingKNN.json')
-    updateOutputConsole(appStatus.starting)
+    brain.load('/model/testingKNN.json').then(() => 
+    updateOutputConsole(appStatus.brainLoaded))
 
+    const containerDiv = createDiv();
     const collectDataBtn = createButton('Collect Data');
-    collectDataBtn.parent(menuHolder);
+    collectDataBtn.parent(containerDiv);
+    containerDiv.parent(menuHolder)
     collectDataBtn.mousePressed(startCollecting);
 }
 
 function keyPressed(){
-    if (keyCode == 32){ //SPACE
+    if (keyCode == 9){ //TAB
         brain.save();
     }
     if(keyCode == 27){ //ESC
@@ -97,12 +100,11 @@ function onResults(results) {
                     const label = Object.entries(res.confidencesByLabel)
                     .find(([k,v]) => v==1)
                     if (!label) return
-                    console.log(label !== undefined ? label[0]: '');
-                    updateOutputConsole(label !== undefined ? label[0]: '-');
+                    updateOutputLetter(label !== undefined && label[0]);
                 });
             }
         }
-        // updateOutputConsole(appStatus.idle);
+        updateOutputConsole(appStatus.idle);
     }
 }
 
@@ -130,6 +132,9 @@ function drawHand(results) {
 
 function updateOutputConsole(text){
     outputConsole.innerHTML = text;
+}
+function updateOutputLetter(text){
+    outputLetter.innerHTML = text;
 }
 
 const hands = new Hands({

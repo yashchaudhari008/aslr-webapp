@@ -1,8 +1,8 @@
-const videoElement = document.getElementById("input_video");
-const canvasElement = document.getElementById("output_canvas");
+const videoElement = document.getElementById("camera_feed");
+const canvasElement = document.getElementById("canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const menuHolder = document.getElementById("menu_holder");
-const outputConsole = document.getElementById("output_console");
+const outputConsole = document.getElementById("dev_console");
 const out = document.getElementById("out");
 
 let brain;
@@ -14,9 +14,9 @@ const SAMPLE_COUNT = 100;
 let currentCount = 0;
 
 const appStatus = {
-    starting: "App Starting, Please Wait",
-    idle: "Idle",
-    collecting: "Collecting Data"
+    starting: "Model Ready",
+    idle: "Ready to collect",
+    collecting: "Sample Collected: "
 }
 
 function setup() {
@@ -29,8 +29,10 @@ function setup() {
     brain = ml5.neuralNetwork(options);
     updateOutputConsole(appStatus.starting)
 
+    const containerDiv = createDiv();
     const collectDataBtn = createButton('Collect Data');
-    collectDataBtn.parent(menuHolder);
+    collectDataBtn.parent(containerDiv);
+    containerDiv.parent(menuHolder)
     collectDataBtn.mousePressed(startCollecting);
 }
 

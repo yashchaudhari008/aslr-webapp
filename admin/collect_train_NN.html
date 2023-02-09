@@ -11,29 +11,46 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
-    <link rel="stylesheet" href="collect_train_NN.css" />
+    <link rel="stylesheet" href="../main.css" />
 </head>
 
 <body>
-    <div style="position: absolute; right: 0;background: red;color: black; font-size: medium; font-weight: 1000;">
+    <header>
+        <h1>NN Model Panel
+        </h1>
+    </header>
+    <div style="position: absolute; right: 0;background: red;color: black; font-size: medium; font-weight: bold; font-family: monospace;">
         CTRL - COLLECT DATA<br/>
         TAB - SAVE DATA<br/>
         ALT - TRAIN MODEL<br/>
         ESC - STOP<br/>
         ` - LOAD DATA<br/>
     </div>
-    <div id="out" style="position: absolute; color: green; font-size: medium; font-weight: 800;"> 0 0</div>
-    <div class="container">
-        <video id="input_video" style="display:none;"></video>
-        <canvas id="output_canvas" width="480px" height="480px"></canvas>
-        <div id="menu_holder">
-            <input id="gesture_name" type="text" maxlength="1" size="1" oninput="this.value = this.value.toUpperCase()"/>
+    <div id="out" style="position: absolute; color: darkblue; font-size: medium; font-weight: bolder; z-index: 2; font-family: monospace;"> 0 0</div>
+    <main class="container">
+        <video id="camera_feed" style="display:none;"></video>
+        <div id="camera_container">
+            <canvas id="canvas" width="480px" height="480px"></canvas>
         </div>
-        <input type="file" id="load"/>
-        <div id="output_console">
-        </div>
-    </div>
+        <aside>
+            <div class="aside-ele">
+                <h1>Results</h1>
+                <h3 id="dev_console"></h3>
+            </div>
+            <div class="aside-ele">
+                <div class="aside-div" id="menu_holder">
+                    <label for="gesture_name">Label:</label>
+                    <input id="gesture_name" type="text" style="font-size: 1.2rem;" maxlength="1" size="1" oninput="this.value = this.value.toUpperCase()"/>
+                </div>
+            </div>
+            <div class="aside-ele">
+                <div class="aside-div">
+                    <input type="file" id="load"/>
+                </div>
+            </div>
+        </aside>
+    </main>
 </body>
-<script src="collect_train_NN.js">
+<script src="./collect_train_NN.js">
 </script>
 </html>

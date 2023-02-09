@@ -3,8 +3,30 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Navigator</title>
+    <link rel="stylesheet" href="../main.css" />
 </head>
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0 1rem;
+    }
+    a {
+        color: var(--backgroundText);
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+    a:hover {
+        color: var(--hoverColor);
+    }
+    li {
+        margin: 1rem 0;
+    }
+</style>
 <body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
 	<ul>
         <li><a href="../index.html" target="_blank">Main App</a></li>
         <li><a href="./collect_train_NN.html" target="_blank">Collect & Train (ANN) - Old Approach</a></li>

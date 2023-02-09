@@ -10,6 +10,7 @@
     --elementBackground: #1B1B1B;
     --elementHeading: #0c0c0c;
     --elementText: var(--backgroundText);
+    --hoverColor: royalblue;
 }
 /* DEBUGGING LINE */
 /*
@@ -35,6 +36,21 @@ footer {
     padding-bottom: 1rem;
     margin: 1rem 0rem;
     text-align: center;
+}
+button, input {
+    background-color: var(--backgroundText);
+    color: var(--backgroundColor);
+    border: 0;
+    border-radius: 0px;
+    font: inherit;
+    font-size: .8rem;
+    padding: .5rem 1.2rem;
+    border-radius: var(--borderRadius);
+}
+button:hover {
+    color: var(--backgroundText);
+    background-color: var(--backgroundColor);
+    outline: 1px solid var(--backgroundText)
 }
 .version {
     color: royalblue;
@@ -87,6 +103,17 @@ aside {
     font-weight: 200;
     padding: 1rem 1.6rem;
     padding-top: 0.2rem;
+}
+.aside-ele .aside-div {
+    font-family: 'Ubuntu Mono', monospace;
+    font-weight: 200;
+    padding: 1rem 1.6rem;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
 }
 #camera_container {
     position: relative;
