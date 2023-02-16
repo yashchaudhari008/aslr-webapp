@@ -72,8 +72,7 @@ function onResults(results) {
 				if (!label) return
 				updateResult(label[0]);
 				updateElementText(predictedLetter,`${label[0]}`);
-				updateElementText(predictedResult,`${result}`);
-			
+				updateElementText(predictedResult,`${result}<span class="underline"> </span>`);
 			});
 			
         }

@@ -89,6 +89,10 @@ aside {
 #predicted_result {
     font-size: 2rem;
 }
+.underline {
+    text-decoration: underline;
+    white-space: pre-wrap;
+}
 .aside-ele h1 {
     background-color: var(--elementHeading);
     border-radius: var(--borderRadius);
