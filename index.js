@@ -27,7 +27,7 @@ brain.load('./model/mainKNN.json', () => {
 
 HANDS_MODEL = new Hands({
 	locateFile: (file) => {
-		return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+		return `./libs/mediapipe/hands/${file}`;
 	},
 })
 
