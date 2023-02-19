@@ -1,6 +1,7 @@
 // APP SETTINGS
 const CAMERA_SIZE = 480/2;
-const BUFFER_SIZE = 7;
+const BUFFER_SIZE = 9;
+const REPEATING_LETTER_THERSOLD = 2;
 const MIN_LETTER_REQ_IN_BUFFER = Math.floor((BUFFER_SIZE*3)/4)
 const appStatus = { //TEMP
     starting: "App Starting, Please Wait",
@@ -15,10 +16,7 @@ const predictedLetter = getElement("predicted_letter");
 const predictedResult = getElement("predicted_result")
 
 let brain;
-let result = '';
-
-let buffer = {};
-let count = 0;
+let result = ``;
 
 let HANDS_MODEL;
 
@@ -80,30 +78,33 @@ function onResults(results) {
 }
 
 // UPDATE RESULT
+let buffer = {};
+let letterCountInBuffer = 0;
+let repeatCount = 0;
 function updateResult(label){
 	if(buffer[label] === undefined || buffer[label] === null){
 		buffer[label] = 1;
 	} else {
 		buffer[label]++;
 	}
-	if(count === BUFFER_SIZE){
+	letterCountInBuffer++;
+	if(letterCountInBuffer >= BUFFER_SIZE){
 		let maxFound = null;
 		for(const ele in buffer){
-			count = count + buffer[ele];
-			if(!maxFound) maxFound = [ele, buffer[ele]]
-			else {
-				if (buffer[ele] > maxFound[1] && 
-					maxFound[1] < MIN_LETTER_REQ_IN_BUFFER){
-					maxFound = [ele, buffer[ele]]
-				}
-			}
+			const isMaj = buffer[ele] >= MIN_LETTER_REQ_IN_BUFFER;
+			if(isMaj && ((maxFound == null) ||((maxFound !=null) && buffer[ele] > maxFound[1]))){
+				maxFound = [ele, buffer[ele]];
+			}	
 		}
-		if(maxFound && !result.endsWith(maxFound[0])){
-			result = result + maxFound[0];
-		}
-		count = 0;
+		if(maxFound){
+			if(!result.endsWith(maxFound[0]) || (repeatCount >= REPEATING_LETTER_THERSOLD)){
+				result = result + maxFound[0];
+				repeatCount=0;
+		} else {
+			repeatCount++;
+		}}
+		letterCountInBuffer = 0;
 		buffer = {};
 		return;
 	}
-	count++;
 }
