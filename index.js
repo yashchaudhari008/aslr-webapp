@@ -3,10 +3,6 @@ const CAMERA_SIZE = 480/2;
 const BUFFER_SIZE = 9;
 const REPEATING_LETTER_THERSOLD = 2;
 const MIN_LETTER_REQ_IN_BUFFER = Math.floor((BUFFER_SIZE*3)/4)
-const appStatus = { //TEMP
-    starting: "App Starting, Please Wait",
-    idle: "Idle",
-}
 
 // HTML ELEMENT REFERENCES
 const videoElement = getElement("camera_feed"); 
