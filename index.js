@@ -46,6 +46,12 @@ const CAMERA = new Camera(videoElement, {
 CAMERA.start().then(() => addStatus(statusHolder, 'Initialize Camera Feed', true)).catch(()=> addStatus(statusHolder, 'Initialize Camera Feed', false));
 
 function onResults(results) {
+	if(results.multiHandedness.length > 0){
+		if(results.multiHandedness[0].label == "Right"){ 
+			drawHand(results, canvasElement, showHand = false);
+			return;
+		}
+	}
 	drawHand(results, canvasElement);
 
     if (results.multiHandWorldLandmarks) {

@@ -13,8 +13,9 @@ function updateElementText(ele, text){
 
 // DRAWS HAND ON IMAGE
 const rootCSS = document.querySelector(":root");
-const landmarkColor = getComputedStyle(rootCSS).getPropertyValue('--hoverColor') || "green";
-function drawHand(results, canvasElement) {
+function drawHand(results, canvasElement, showHand = true) {
+	let landmarkColor = getComputedStyle(rootCSS).getPropertyValue('--hoverColor');
+	if(!showHand || !landmarkColor) landmarkColor = "red";
 	const canvasCtx = canvasElement.getContext("2d"); 
 	canvasCtx.save();
 	canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
