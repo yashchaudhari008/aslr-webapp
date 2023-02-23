@@ -1,18 +1,42 @@
 // APP SETTINGS
 const CAMERA_SIZE = 480/2;
-const BUFFER_SIZE = 9;
 const REPEATING_LETTER_THERSOLD = 2;
-const MIN_LETTER_REQ_IN_BUFFER = Math.floor((BUFFER_SIZE*3)/4)
 const SPEECH_LANG = 'en-IN';
-const SPEAK_LETTER_ENABLED = false;
-const SPEAK_WORD_ENABLED = false;
+let BUFFER_SIZE = 9;
+let MIN_LETTER_REQ_IN_BUFFER = 6; //Math.floor((value*3)/4)
+let SPEAK_LETTER_ENABLED = false;
+let SPEAK_WORD_ENABLED = false;
 
 // HTML ELEMENT REFERENCES
 const videoElement = getElement("camera_feed"); 
 const canvasElement = getElement("canvas");
 const statusHolder = getElement("statusTable");
 const predictedLetter = getElement("predicted_letter");
-const predictedResult = getElement("predicted_result")
+const predictedResult = getElement("predicted_result");
+const speakLettersCheckbox = getElement("speakLettersCB");
+const speakWordsCheckbox = getElement("speakWordsCB");
+const customThresoldCheckbox = getElement("customThresoldCB");
+const thresoldInput = getElement("customThresold");
+
+// APP SETTINGS ONCHANGE EVENTS
+speakLettersCheckbox.onchange = (e) => SPEAK_LETTER_ENABLED = e.target.checked;
+speakWordsCheckbox.onchange = (e) => SPEAK_WORD_ENABLED = e.target.checked;
+customThresoldCheckbox.onchange = (e) => {
+	if(e.target.checked) {
+		updateBufferValues(thresoldInput.value);
+		thresoldInput.disabled = false;
+	} else {
+		updateBufferValues(9);
+		thresoldInput.disabled = true;
+	}
+};
+thresoldInput.onchange = (e) => {
+	if (customThresoldCheckbox.checked) updateBufferValues(e.target.value)
+}
+const updateBufferValues = (value) => {
+	BUFFER_SIZE = value;
+	MIN_LETTER_REQ_IN_BUFFER = Math.floor((value*3)/4);
+}
 
 let brain;
 let result = ``;
