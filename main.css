@@ -53,7 +53,7 @@ button:hover {
     outline: 1px solid var(--backgroundText)
 }
 .version {
-    color: royalblue;
+    color: var(--hoverColor);
     position: absolute;
     right: 0.2rem;
     top: 0rem;

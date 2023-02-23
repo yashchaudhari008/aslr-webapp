@@ -12,6 +12,8 @@ function updateElementText(ele, text){
 }
 
 // DRAWS HAND ON IMAGE
+const rootCSS = document.querySelector(":root");
+const landmarkColor = getComputedStyle(rootCSS).getPropertyValue('--hoverColor') || "green";
 function drawHand(results, canvasElement) {
 	const canvasCtx = canvasElement.getContext("2d"); 
 	canvasCtx.save();
@@ -26,10 +28,10 @@ function drawHand(results, canvasElement) {
 	if (results.multiHandLandmarks) {
 		for (const landmarks of results.multiHandLandmarks) {
 			drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-				color: "#00FF00",
+				color: "#000000",
 				lineWidth: 5,
 			});
-			drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
+			drawLandmarks(canvasCtx, landmarks, { color: landmarkColor, lineWidth: 2 });
 		}
 	}
 	canvasCtx.restore();
