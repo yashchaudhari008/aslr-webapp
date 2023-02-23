@@ -3,6 +3,9 @@ const CAMERA_SIZE = 480/2;
 const BUFFER_SIZE = 9;
 const REPEATING_LETTER_THERSOLD = 2;
 const MIN_LETTER_REQ_IN_BUFFER = Math.floor((BUFFER_SIZE*3)/4)
+const SPEECH_LANG = 'en-IN';
+const SPEAK_LETTER_ENABLED = false;
+const SPEAK_WORD_ENABLED = false;
 
 // HTML ELEMENT REFERENCES
 const videoElement = getElement("camera_feed"); 
@@ -44,6 +47,12 @@ const CAMERA = new Camera(videoElement, {
 	height: CAMERA_SIZE,
 });
 CAMERA.start().then(() => addStatus(statusHolder, 'Initialize Camera Feed', true)).catch(()=> addStatus(statusHolder, 'Initialize Camera Feed', false));
+
+const SPEECH = new SpeechSynthesisUtterance();
+SPEECH.lang = SPEECH_LANG;
+SPEECH.rate = 2;
+SPEECH.volume = 1;
+SPEECH.pitch = 1;
 
 function onResults(results) {
 	if(results.multiHandedness.length > 0){
@@ -101,6 +110,11 @@ function updateResult(label){
 		if(maxFound){
 			if(!result.endsWith(maxFound[0]) || (repeatCount >= REPEATING_LETTER_THERSOLD)){
 				result = result + maxFound[0];
+				if(SPEAK_WORD_ENABLED && maxFound[0] == ' '){
+					speak(result.split(" ").at(-2), SPEECH) 
+				} else if(SPEAK_LETTER_ENABLED){
+					speak(maxFound[0], SPEECH)
+				}
 				repeatCount=0;
 		} else {
 			repeatCount++;
@@ -109,4 +123,13 @@ function updateResult(label){
 		buffer = {};
 		return;
 	}
+} 
+function speak(text, speech){
+	speech.text = text;
+	if(!speech.voice){
+		voices = window.speechSynthesis.getVoices();
+		speech.voice = voices.find(x => x.lang === SPEECH_LANG);
+		if(speech.voice === null) speech.voice = voices[0];
+	}
+	window.speechSynthesis.speak(speech);
 }
