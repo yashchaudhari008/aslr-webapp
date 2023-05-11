@@ -42,9 +42,11 @@ let brain;
 let result = ``;
 
 let HANDS_MODEL;
-
+// let params = getURLParams();
+const urlParams = new URLSearchParams(window.location.search);
+const oldModel = (urlParams.get("oldModel") == "true" ? true: false)
 brain = ml5.KNNClassifier();
-brain.load('./model/mainKNN.json', () => {
+brain.load(`./model/mainKNN${(!oldModel) ? '1':''}.json`, () => {
 	addStatus(statusHolder, 'KNN Model Loaded', true);
 })
 
@@ -104,7 +106,7 @@ function onResults(results) {
 				.find(([key,value]) => value==1)
 				if (!label) return
 				updateResult(label[0]);
-				updateElementText(predictedLetter,`${label[0]}`);
+				updateElementText(predictedLetter,`${getNameFromLabel(label[0])}`);
 				updateElementText(predictedResult,`${result}<span class="underline"> </span>`);
 			});
 			
@@ -133,10 +135,14 @@ function updateResult(label){
 		}
 		if(maxFound){
 			if(!result.endsWith(maxFound[0]) || (repeatCount >= REPEATING_LETTER_THERSOLD)){
-				result = result + maxFound[0];
+				if(maxFound[0] === '~'){
+					result = result.slice(0, result.length-1)
+				} else {
+					result = result + maxFound[0];
+				}
 				if(SPEAK_WORD_ENABLED && maxFound[0] == ' '){
 					speak(result.split(" ").at(-2), SPEECH) 
-				} else if(SPEAK_LETTER_ENABLED){
+				} else if(SPEAK_LETTER_ENABLED && maxFound[0] !== '~'){
 					speak(maxFound[0], SPEECH)
 				}
 				repeatCount=0;

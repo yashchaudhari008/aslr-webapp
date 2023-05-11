@@ -11,6 +11,12 @@ function updateElementText(ele, text){
     ele.innerHTML = text;
 }
 
+function getNameFromLabel(label){
+	if(label === ' ') return 'Spc';
+	if(label === "~") return 'Del'
+	return label;
+}
+
 // DRAWS HAND ON IMAGE
 const rootCSS = document.querySelector(":root");
 function drawHand(results, canvasElement, showHand = true) {
