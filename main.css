@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-:root{
-    font-size: 16px;
-    font-family: 'Inconsolata', monospace;
-    letter-spacing: 0.1rem;
-    --borderRadius: 0.5rem;
-    --backgroundColor:#151515;
-    --backgroundText: #e3e3e3;
-    --elementBackground: #1B1B1B;
-    --elementHeading: #0c0c0c;
-    --elementText: var(--backgroundText);
-    --hoverColor: royalblue;
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+:root {
+  font-size: 16px;
+  font-family: "Inconsolata", monospace;
+  letter-spacing: 0.1rem;
+  --borderRadius: 0.5rem;
+  --backgroundColor: #1b1b1b;
+  --backgroundText: #ffffff;
+  --elementBackground: #222222;
+  --elementHeading: #000000;
+  --elementText: var(--backgroundText);
+  --hoverColor: rgb(65, 225, 126);
 }
 /* DEBUGGING LINE */
 /*
@@ -18,171 +18,164 @@
     outline: 1px solid green;
     background-color: rgba(60, 255, 0, 0.15);
 } */
-html, body {
-    background-color: var(--backgroundColor);
-    color: var(--backgroundText);
+html,
+body {
+  background-color: var(--backgroundColor);
+  color: var(--backgroundText);
 }
 body {
-    display: grid;
+  display: grid;
 }
-header{
-    text-align: center;
-    font-size: 1.2rem;
-}
-footer {
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin: 1rem 0rem;
-    text-align: center;
-}
-button, input {
-    background-color: var(--backgroundText);
-    color: var(--backgroundColor);
-    border: 0;
-    border-radius: 0px;
-    font: inherit;
-    font-size: .8rem;
-    padding: .5rem 1.2rem;
-    border-radius: var(--borderRadius);
+button,
+input {
+  background-color: var(--backgroundText);
+  color: var(--backgroundColor);
+  border: 0;
+  border-radius: 0px;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--borderRadius);
 }
 button:hover {
-    color: var(--backgroundText);
-    background-color: var(--backgroundColor);
-    outline: 1px solid var(--backgroundText)
+  color: var(--backgroundText);
+  background-color: var(--backgroundColor);
+  outline: 1px solid var(--backgroundText);
 }
 .version {
-    color: var(--hoverColor);
-    position: absolute;
-    right: 0.2rem;
-    top: 0rem;
-    font-size: 0.6rem;
-    font-weight: 800;
+  color: var(--hoverColor);
+  position: absolute;
+  right: 0.2rem;
+  top: 0rem;
+  font-size: 0.6rem;
+  font-weight: 800;
 }
 main {
-    justify-self: center;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap:1rem;
-    max-width: 55rem;
-    padding-top: 1rem;
-    justify-content: center;
+  justify-self: center;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 60rem;
+  padding-top: 1rem;
+  justify-content: center;
 }
 aside {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
 }
 .aside-ele {
-    background-color: var(--elementBackground);
-    color: var(--elementText);
-    border-radius: var(--borderRadius);
-    position: relative;
-    padding-top: 1rem;
-    margin-top: 1rem;
-    word-break: break-all;
+  background-color: var(--elementBackground);
+  color: var(--elementText);
+  border-radius: 0.5rem;
+  border: 1px solid white;
+  position: relative;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  word-break: break-all;
 }
 #predicted_result {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 .underline {
-    text-decoration: underline;
-    white-space: pre-wrap;
+  text-decoration: underline;
+  white-space: pre-wrap;
 }
 .aside-ele h1 {
-    background-color: var(--elementHeading);
-    border-radius: var(--borderRadius);
-    font-size: 1rem;
-    position: absolute;
-    margin-top: -2rem;
-    padding: .8rem 2.4rem;
-    right: 1rem;
+  background-color: var(--elementHeading);
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  position: absolute;
+  margin-top: -2rem;
+  padding: 0.8rem 2.4rem;
+  left: 1rem;
+  border: 1px solid rgb(255, 255, 255);
 }
 .aside-ele h3 {
-    font-family: 'Ubuntu Mono', monospace;
-    font-weight: 200;
-    padding: 1rem 1.6rem;
-    padding-top: 0.2rem;
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 200;
+  padding: 1rem 1.6rem;
+  padding-top: 0.2rem;
 }
 .aside-wrapper {
-    padding: 1rem;
-    padding-top: 1rem;
-    
-    font-family: 'Ubuntu Mono', monospace;
-    font-size: 1rem;
+  padding: 1rem;
+  padding-top: 1rem;
 
-    display: grid;
-    gap:0.3rem;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 1rem;
+
+  display: grid;
+  gap: 0.3rem;
 }
 .aside-wrapper div {
-    display: flex;
-    align-items: center;
-    gap: .3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-.aside-wrapper input[type=checkbox]{
-    flex-shrink: 0;
-    accent-color: var(--hoverColor);
-    padding: 0;
-    --size: 1.4rem;
-    height: var(--size);
-    width: var(--size);
+.aside-wrapper input[type="checkbox"] {
+  flex-shrink: 0;
+  accent-color: var(--hoverColor);
+  padding: 0;
+  --size: 1.4rem;
+  height: var(--size);
+  width: var(--size);
 }
-.aside-wrapper input[type=number] {
-    flex-shrink: 0;
-    padding: .5rem 0.1rem;
-    color: var(--hoverColor);
-    background-color: transparent;
-    font-weight: 800;
-    font-size: 1.2rem;
-    width: 2rem;
+.aside-wrapper input[type="number"] {
+  flex-shrink: 0;
+  padding: 0.5rem 0.1rem;
+  color: var(--hoverColor);
+  background-color: transparent;
+  font-weight: 800;
+  font-size: 1.2rem;
+  width: 2rem;
 }
 #camera_container {
-    position: relative;
+  position: relative;
 }
 #canvas {
-    background-color: var(--elementBackground);
-    border-radius: var(--borderRadius);
-    width: 100%;
-    transform: scale(-1, 1);
+  border: 1px solid rgb(255, 255, 255);
+  background-color: var(--elementBackground);
+  border-radius: var(--borderRadius);
+  width: 100%;
+  transform: scale(-1, 1);
 }
 #predicted_letter {
-    background-color: var(--elementHeading);
-    color: var(--elementText);
-    border-radius: var(--borderRadius);
-    width: 5rem;
-    height: 5rem;
-    margin: .8rem .5rem;
-    padding: .5rem;
+  background-color: var(--elementHeading);
+  color: var(--elementText);
+  border-radius: var(--borderRadius);
+  width: 5rem;
+  height: 5rem;
+  margin: 0.8rem 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(255, 255, 255);
 
-    bottom:0;
-    right:0;
+  bottom: 0;
+  right: 0;
 
-    position: absolute;
-    display: grid;
-    place-items: center;
+  position: absolute;
+  display: grid;
+  place-items: center;
 
-    font-size: 3rem;
-    font-weight: 800;
+  font-size: 3rem;
+  font-weight: 800;
 }
 
 #statusTable {
-    margin-top: .8rem;
-    padding: 1rem;
-    width: 100%;
-    
+  margin-top: 0.8rem;
+  padding: 1rem;
+  width: 100%;
 }
 #statusTable tr {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 #statusTable tr td:first-child {
-    width: 90%;
+  width: 90%;
 }
-#statusTable tr td:last-child{
-    text-align: right;
+#statusTable tr td:last-child {
+  text-align: right;
 }

@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8" />
-	<title>Navigator</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Navigator</title>
     <link rel="stylesheet" href="../main.css" />
-</head>
-<style>
+  </head>
+  <style>
     ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0 1rem;
+      list-style-type: none;
+      margin: 0;
+      padding: 0 1rem;
     }
     a {
-        color: var(--backgroundText);
-        text-decoration: none;
-        font-size: 1.2rem;
+      color: var(--backgroundText);
+      text-decoration: none;
+      font-size: 1.2rem;
     }
     a:hover {
-        color: var(--hoverColor);
+      color: var(--hoverColor);
     }
     li {
-        margin: 1rem 0;
+      margin: 1rem 0;
     }
-</style>
-<body>
+  </style>
+  <body>
     <header>
-        <h1>Admin Panel</h1>
+      <h1>Admin Panel</h1>
     </header>
-	<ul>
-        <li><a href="../index.html" target="_blank">Main App</a></li>
-        <li><a href="../index.html?oldModel=true" target="_blank">Main App (Old)</a></li>
-        <li><a href="./collect_train_NN.html" target="_blank">Collect & Train (ANN) - Old Approach</a></li>
-        <li><a href="./train_test_KNN.html" target="_blank">Train & Test (KNN)</a></li>
-        <hr>
-        <li><a href="https://mediapipe.dev/images/mobile/hand_landmarks.png" target="_blank">Mediapipe Hand Image</a></li>
+    <ul>
+      <li><a href="../index.html" target="_blank">Main App</a></li>
+      <li>
+        <a href="./train_test_KNN.html" target="_blank">Train & Test (KNN)</a>
+      </li>
+      <hr />
+      <li>
+        <a
+          href="https://mediapipe.dev/images/mobile/hand_landmarks.png"
+          target="_blank"
+          >Mediapipe Hand Image</a
+        >
+      </li>
     </ul>
-</body>
+  </body>
 </html>

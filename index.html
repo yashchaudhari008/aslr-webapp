@@ -9,28 +9,19 @@
     <script src="./libs/mediapipe/hands/hands.js"></script>
     <script src="./libs/ml5/ml5.min.js"></script>
     <link rel="stylesheet" href="./main.css" />
-    <title>ASLR App</title>
+    <title>Sign Language App</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <header>
-        <h1>ASLR App</h1>
-        <p class="version">Development Version</p>
-    </header>
     <main>
         <video id="camera_feed" style="display:none;"></video>
         <div id="camera_container">
-            <canvas id="canvas" width="480px" height="480px"></canvas>
+            <canvas id="canvas" width="600px" height="600px"></canvas>
             <div id="predicted_letter">-</div>
         </div>
         <aside>
-            <div class="aside-ele">
-                <h1>Results</h1>
-                <h3 id="predicted_result"> -
-                </h3>
-            </div>
             <div class="aside-ele">
                 <h1>Status</h1>
                 <table id="statusTable">
@@ -40,40 +31,21 @@
                 <h1>Settings</h1>
                 <div class="aside-wrapper">
                     <div>
-                        <input type="checkbox" 
-                        id="speakLettersCB" name="speakLettersCB"></input>
-                        <label for="speakLettersCB">Enable Speak Letters</label>
-                    </div>
-                    <div>
-                        <input type="checkbox"
-                        id="speakWordsCB" name="speakWordsCB"></input>
-                        <label for="speakWordsCB">Enable Speak Words</label>
-                    </div>
-                    <div>
                         <input type="checkbox"
                         id="customThresoldCB" name="customThresoldCB"></input>
                         <label for="customThresoldCB">Set Custom Thresold:</label>
                         <input id="customThresold" type="number" min="5" max="15" value="9" disabled/>
                     </div>
                 </div>
+            </div>           
+            <div class="aside-ele">
+                <h1>Results</h1>
+                <h3 id="predicted_result"> -
+                </h3>
             </div>
         </aside>
     </main>
-    <footer>
-        Made using ml5.js, Mediapipe's Hands Model
-    </footer>
-
 </body>
-<!-- <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("App: Service Worker Registered"))
-            .catch((err) => console.log("App: Failed - Service Worker Not Registered", err));
-    } else {
-        console.log("App: Not Installable On Current Browser");
-    }
-</script> -->
 <script src="./utils.js" defer></script>
 <script src="./index.js" defer></script>
 </html>
